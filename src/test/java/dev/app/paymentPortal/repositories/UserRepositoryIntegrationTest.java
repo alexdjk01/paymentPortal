@@ -77,4 +77,16 @@ public class UserRepositoryIntegrationTest {
 
     }
 
+    @Test
+    public void testThatUsersAreFromBucharest()
+    {
+        User userA = TestDataUtil.createUserA();
+        User userB = TestDataUtil.createUserB();
+        underTest.save(userA);
+        underTest.save(userB);
+        Iterable<User> results = underTest.locationInLocality("Bucharest");
+        assertThat(results).containsExactly(userB);
+    }
+
+
 }
