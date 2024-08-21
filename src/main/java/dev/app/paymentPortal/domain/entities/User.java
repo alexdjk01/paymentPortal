@@ -1,4 +1,4 @@
-package dev.app.paymentPortal.domain;
+package dev.app.paymentPortal.domain.entities;
 
 
 import jakarta.persistence.*;
@@ -16,8 +16,10 @@ import lombok.NoArgsConstructor;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_seq")
     private Long id;
     private String fullName;
     private String address;
+    private String email;
+    private String password;
 }

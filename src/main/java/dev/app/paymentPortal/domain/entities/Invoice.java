@@ -1,4 +1,4 @@
-package dev.app.paymentPortal.domain;
+package dev.app.paymentPortal.domain.entities;
 
 
 import jakarta.persistence.*;
@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 public class Invoice {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_id_seq")
     private Long id;
     private Double waterConsumption;
     private Double gasConsumption;

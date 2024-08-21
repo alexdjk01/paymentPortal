@@ -1,7 +1,7 @@
 package dev.app.paymentPortal.repositories;
 
 import dev.app.paymentPortal.TestDataUtil;
-import dev.app.paymentPortal.domain.User;
+import dev.app.paymentPortal.domain.entities.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

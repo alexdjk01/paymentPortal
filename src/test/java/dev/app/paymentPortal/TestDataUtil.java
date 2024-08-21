@@ -1,7 +1,8 @@
 package dev.app.paymentPortal;
 
-import dev.app.paymentPortal.domain.Invoice;
-import dev.app.paymentPortal.domain.User;
+import dev.app.paymentPortal.domain.entities.Invoice;
+import dev.app.paymentPortal.domain.entities.User;
+import dev.app.paymentPortal.domain.entities.UtilityPriceDynamic;
 
 public final class TestDataUtil {
 
@@ -14,6 +15,8 @@ public final class TestDataUtil {
                 .id(1L)
                 .fullName("Andreea Ionel")
                 .address("Rosiori Street, Campina")
+                .email("andreeaionel@gmail.com")
+                .password("andreea1234")
                 .build();
     }
 
@@ -23,6 +26,8 @@ public final class TestDataUtil {
                 .id(2L)
                 .fullName("Alexandru Ionel")
                 .address("Naum Ramniceanu Street, Bucharest")
+                .email("alexionel@gmail.com")
+                .password("alex1234")
                 .build();
     }
 
@@ -32,6 +37,8 @@ public final class TestDataUtil {
                 .id(3L)
                 .fullName("Ioana Stoica")
                 .address("Piscului Street, Bucharest")
+                .email("ionaastoica@gmail.com")
+                .password("ioana1234")
                 .build();
     }
 
@@ -78,6 +85,14 @@ public final class TestDataUtil {
                 .gasPrice(2.0)
                 .billingPeriod("APRIL")
                 .user(user)
+                .build();
+    }
+
+    public static UtilityPriceDynamic createUtilityPrice() {
+        return UtilityPriceDynamic.builder()
+                .id(1L)
+                .utilityType("Water Bill")
+                .pricePerUnit(2.0)
                 .build();
     }
 }

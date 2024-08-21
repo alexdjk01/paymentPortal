@@ -1,6 +1,6 @@
 package dev.app.paymentPortal.repositories;
 
-import dev.app.paymentPortal.domain.User;
+import dev.app.paymentPortal.domain.entities.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
