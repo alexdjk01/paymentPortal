@@ -6,6 +6,7 @@ import dev.app.paymentPortal.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -26,5 +27,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    }
+
+    @Override
+    public User createUpdateUser(Long id, User user) {
+        user.setId(id);
+       return userRepository.save(user);
+    }
+
+    @Override
+    public boolean isExists(Long id) {
+        return userRepository.existsById(id);
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 }

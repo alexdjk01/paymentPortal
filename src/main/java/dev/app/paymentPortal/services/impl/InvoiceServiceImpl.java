@@ -27,4 +27,22 @@ public class InvoiceServiceImpl implements InvoiceService {
     public List<Invoice> findAll() {
         return StreamSupport.stream(invoiceRepository.findAll().spliterator(), false).collect(Collectors.toList()) ;
     }
+
+    @Override
+    public boolean isExists(Long id) {
+        return invoiceRepository.existsById(id);
+    }
+
+    @Override
+    public Invoice createUpdateInvoice(Long id, Invoice invoice) {
+
+        invoice.setId(id);
+        return invoiceRepository.save(invoice);
+
+    }
+
+    @Override
+    public void deleteInvoiceById(Long id) {
+        invoiceRepository.deleteById(id);
+    }
 }

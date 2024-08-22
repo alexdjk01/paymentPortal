@@ -11,4 +11,10 @@ public interface InvoiceService {
     Invoice createInvoice(Invoice invoice);
 
     List<Invoice> findAll();
+
+    boolean isExists(Long id);
+
+    Invoice createUpdateInvoice(Long id, Invoice invoice);
+
+    void deleteInvoiceById(Long id);
 }

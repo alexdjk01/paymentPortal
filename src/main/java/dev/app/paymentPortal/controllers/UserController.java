@@ -4,10 +4,9 @@ import dev.app.paymentPortal.domain.dto.UserDto;
 import dev.app.paymentPortal.domain.entities.User;
 import dev.app.paymentPortal.mappers.Mapper;
 import dev.app.paymentPortal.services.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +38,31 @@ public class UserController {
         return users.stream()
                 .map(userMapper::mapTo)
                 .collect(Collectors.toList());
+    }
+
+    @PutMapping(path = "/users/{id}")
+    public ResponseEntity<UserDto> createUpdateUser(@PathVariable Long id, @RequestBody UserDto userDto)
+    {
+
+        User user = userMapper.mapFrom(userDto);
+        boolean userExists = userService.isExists(id);
+        User updatedUser = userService.createUpdateUser(id,user);
+        UserDto updatedUserDto = userMapper.mapTo(updatedUser);
+        if(userExists)
+        {
+            return new ResponseEntity<>(updatedUserDto, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(updatedUserDto, HttpStatus.CREATED);
+        }
+    }
+
+    @DeleteMapping(path = "/users/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id)
+    {
+        userService.deleteUserById(id);
+        return new ResponseEntity<>("User succesfully DELETED", HttpStatus.OK);
     }
 
 }

@@ -27,4 +27,20 @@ public class AdminServiceImpl implements AdminService {
     public List<Admin> findAll() {
         return StreamSupport.stream(adminRepository.findAll().spliterator(),false).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean isExists(Long id) {
+        return adminRepository.existsById(id);
+    }
+
+    @Override
+    public Admin createUpdateAdmin(Long id, Admin admin) {
+       admin.setId(id);
+       return adminRepository.save(admin);
+    }
+
+    @Override
+    public void deleteAdminById(Long id) {
+        adminRepository.deleteById(id);
+    }
 }

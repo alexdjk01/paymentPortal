@@ -5,10 +5,9 @@ import dev.app.paymentPortal.domain.dto.InvoiceDto;
 import dev.app.paymentPortal.domain.entities.Invoice;
 import dev.app.paymentPortal.mappers.Mapper;
 import dev.app.paymentPortal.services.InvoiceService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +38,30 @@ public class InvoiceController {
         return invoices.stream()
                 .map(invoiceMapper::mapTo)
                 .collect(Collectors.toList());
+    }
+
+    @PutMapping(path = "/invoices/{id}")
+    public ResponseEntity<InvoiceDto> createUpdateInvoice(@PathVariable Long id, @RequestBody InvoiceDto invoiceDto)
+    {
+        Invoice invoice = invoiceMapper.mapFrom(invoiceDto);
+        boolean invoiceExists = invoiceService.isExists(id);
+        Invoice updatedInvoice = invoiceService.createUpdateInvoice(id,invoice);
+        InvoiceDto updatedInvoiceDto = invoiceMapper.mapTo(updatedInvoice);
+        if(invoiceExists)
+        {
+            return new ResponseEntity<>(updatedInvoiceDto, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(updatedInvoiceDto, HttpStatus.CREATED);
+        }
+    }
+
+    @DeleteMapping(path = "/invoices/{id}")
+    public ResponseEntity<String> deleteInvoiceById(@PathVariable Long id)
+    {
+        invoiceService.deleteInvoiceById(id);
+        return new ResponseEntity<>("Invoice successfully DELETED", HttpStatus.OK);
     }
 
 

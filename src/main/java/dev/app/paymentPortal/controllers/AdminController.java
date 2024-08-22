@@ -5,10 +5,9 @@ import dev.app.paymentPortal.domain.entities.Admin;
 import dev.app.paymentPortal.domain.entities.User;
 import dev.app.paymentPortal.mappers.Mapper;
 import dev.app.paymentPortal.services.AdminService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,6 +38,31 @@ public class AdminController {
         return admins.stream()
                 .map(adminMapper::mapTo)
                 .collect(Collectors.toList());
+    }
+
+    @PutMapping(path = "/admins/{id}")
+    public ResponseEntity<AdminDto> createUpdateAdmin(@PathVariable Long id, @RequestBody AdminDto adminDto)
+    {
+        Admin admin = adminMapper.mapFrom(adminDto);
+        boolean adminExists = adminService.isExists(id);
+        Admin updatedAdmin = adminService.createUpdateAdmin(id,admin);
+        AdminDto adminDtoUpdated = adminMapper.mapTo(updatedAdmin);
+        if(adminExists)
+        {
+            return new ResponseEntity<>(adminDtoUpdated, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(adminDtoUpdated, HttpStatus.CREATED);
+        }
+    }
+
+    @DeleteMapping (path = "/admins/{id}")
+    public ResponseEntity<String> deleteAdminById(@PathVariable Long id)
+    {
+        adminService.deleteAdminById(id);
+        return new ResponseEntity<>("Admin successfully DELETED", HttpStatus.OK);
+
     }
 
 }

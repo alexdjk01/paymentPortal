@@ -11,4 +11,10 @@ public interface UserService {
     User createUser(User user);
 
     List<User> findAll();
+
+    User createUpdateUser(Long id, User user);
+
+    boolean isExists(Long id);
+
+    void deleteUserById(Long id);
 }

@@ -1,4 +1,4 @@
-package dev.app.paymentPortal.backend;
+package dev.app.paymentPortal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
