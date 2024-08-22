@@ -19,7 +19,8 @@ public class UtilityPriceDynamicServiceImpl implements UtilityPriceDynamicServic
     }
 
     @Override
-    public UtilityPriceDynamic createUtility(UtilityPriceDynamic utilityPriceDynamic) {
+    public UtilityPriceDynamic createUtility(String utility, UtilityPriceDynamic utilityPriceDynamic) {
+        utilityPriceDynamic.setUtilityType(utility);
         return utilityPriceDynamicRepository.save(utilityPriceDynamic);
     }
 

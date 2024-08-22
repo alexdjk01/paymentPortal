@@ -31,7 +31,7 @@ public class UtilityPricesRepositoryIntegrationTest {
     {
         UtilityPriceDynamic utilityPriceDynamic = TestDataUtil.createUtilityPrice();
         underTest.save(utilityPriceDynamic);
-        Optional<UtilityPriceDynamic> result = underTest.findById(utilityPriceDynamic.getId());
+        Optional<UtilityPriceDynamic> result = underTest.findById(utilityPriceDynamic.getUtilityType());
         assertThat(result).isPresent();
         assertThat(result.get()).isEqualTo(utilityPriceDynamic);
 

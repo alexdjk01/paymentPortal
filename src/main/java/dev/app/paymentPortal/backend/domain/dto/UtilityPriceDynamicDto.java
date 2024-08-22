@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UtilityPriceDynamicDto {
 
-    private Long id;
     private String utilityType;
     private double pricePerUnit;
 

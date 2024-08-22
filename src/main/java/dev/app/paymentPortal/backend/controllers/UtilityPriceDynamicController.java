@@ -4,10 +4,9 @@ import dev.app.paymentPortal.domain.dto.UtilityPriceDynamicDto;
 import dev.app.paymentPortal.domain.entities.UtilityPriceDynamic;
 import dev.app.paymentPortal.mappers.Mapper;
 import dev.app.paymentPortal.services.UtilityPriceDynamicService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,15 +22,7 @@ public class UtilityPriceDynamicController {
         this.utilityMapper = utilityMapper;
     }
 
-    @PostMapping(path = "/utilityPrice")
-    public UtilityPriceDynamicDto createUtilityPriceDtop(@RequestBody UtilityPriceDynamicDto utilityPriceDynamicDto)
-    {
-        UtilityPriceDynamic utilityPriceDynamic = utilityMapper.mapFrom(utilityPriceDynamicDto);
-        UtilityPriceDynamic savedUtilityPriceDynamic = utilityPriceDynamicService.createUtility(utilityPriceDynamic);
-        return utilityMapper.mapTo(savedUtilityPriceDynamic);
-    }
-
-    @GetMapping(path = "/utilityPrice")
+    @GetMapping(path = "/utilityPrices")
     public List<UtilityPriceDynamicDto> listUtilities()
     {
         List<UtilityPriceDynamic> utilities = utilityPriceDynamicService.findAll();
@@ -39,4 +30,17 @@ public class UtilityPriceDynamicController {
                 .map(utilityMapper::mapTo)
                 .collect(Collectors.toList());
     }
+
+
+    @PutMapping(path = "/utilityPrices/{utility}")
+    public ResponseEntity<UtilityPriceDynamicDto> createUtilityPrice(@PathVariable String utility, @RequestBody UtilityPriceDynamicDto utilityPriceDynamicDto)
+    {
+        UtilityPriceDynamic utilityPriceDynamic = utilityMapper.mapFrom(utilityPriceDynamicDto);
+        UtilityPriceDynamic savedUtilityPriceDynamic = utilityPriceDynamicService.createUtility(utility, utilityPriceDynamic);
+        UtilityPriceDynamicDto savedUtilityPriceDto  = utilityMapper.mapTo(savedUtilityPriceDynamic);
+        return new ResponseEntity<>(savedUtilityPriceDto, HttpStatus.CREATED);
+
+
+    }
+
 }

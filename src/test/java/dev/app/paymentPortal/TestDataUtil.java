@@ -90,8 +90,7 @@ public final class TestDataUtil {
 
     public static UtilityPriceDynamic createUtilityPrice() {
         return UtilityPriceDynamic.builder()
-                .id(1L)
-                .utilityType("Water Bill")
+                .utilityType("water")
                 .pricePerUnit(2.0)
                 .build();
     }

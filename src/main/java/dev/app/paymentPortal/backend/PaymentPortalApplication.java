@@ -1,4 +1,4 @@
-package dev.app.paymentPortal;
+package dev.app.paymentPortal.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,11 +10,5 @@ public class PaymentPortalApplication {
 		SpringApplication.run(PaymentPortalApplication.class, args);
 	}
 
-
-	//!!!!   Sa fac UtilityPrice in loc de un ID sa aiba nume ca ID de ex:
-	// /utilityPrice/water
-	// /utilityPrice/gas
-	// /utilityPrice/electricity
-	// si asa avem numai maxim 3 obiecte in clasa aia sa nu fie mai multe.
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface UtilityPriceDynamicService {
 
-    UtilityPriceDynamic createUtility(UtilityPriceDynamic utilityPriceDynamic);
+    UtilityPriceDynamic createUtility(String utility, UtilityPriceDynamic utilityPriceDynamic);
 
     List<UtilityPriceDynamic> findAll();
 }

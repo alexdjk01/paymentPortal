@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UtilityPriceDynamicRepository extends CrudRepository<UtilityPriceDynamic, Long> {
+public interface UtilityPriceDynamicRepository extends CrudRepository<UtilityPriceDynamic, String> {
 
 
 

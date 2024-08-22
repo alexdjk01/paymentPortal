@@ -17,8 +17,6 @@ import lombok.NoArgsConstructor;
 public class UtilityPriceDynamic {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "utility_prices_seq")
-    private Long id;
     private String utilityType;
     private double pricePerUnit;
 }
