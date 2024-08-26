@@ -44,4 +44,10 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<User> findUserByEmail(String email) {
+        Optional<User> user = StreamSupport.stream(userRepository.findAll().spliterator(), false).filter(e -> e.getEmail().equals(email)).findFirst();
+        return user;
+    }
 }

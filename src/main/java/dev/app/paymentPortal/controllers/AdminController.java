@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,6 +40,21 @@ public class AdminController {
         return admins.stream()
                 .map(adminMapper::mapTo)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "/admins/{email}")
+    public ResponseEntity<AdminDto> getAdminByEmail(@PathVariable String email)
+    {
+        Optional<Admin> adminFound = adminService.findAdminByEmail(email);
+        if(adminFound.isPresent())
+        {
+            AdminDto adminDto = adminMapper.mapTo(adminFound.get());
+            return new ResponseEntity<>(adminDto,HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping(path = "/admins/{id}")

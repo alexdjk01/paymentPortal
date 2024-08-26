@@ -6,6 +6,7 @@ import dev.app.paymentPortal.services.AdminService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -42,5 +43,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteAdminById(Long id) {
         adminRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Admin> findAdminByEmail(String email) {
+        Optional<Admin> admin = StreamSupport.stream(adminRepository.findAll().spliterator(), false).filter(e -> e.getEmail().equals(email)).findFirst();
+        return admin;
     }
 }

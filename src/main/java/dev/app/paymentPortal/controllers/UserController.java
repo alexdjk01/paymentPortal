@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,6 +40,21 @@ public class UserController {
         return users.stream()
                 .map(userMapper::mapTo)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "/users/{email}")
+    public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email)
+    {
+        Optional<User> userFound = userService.findUserByEmail(email);
+        if(userFound.isPresent())
+        {
+            UserDto userDtoFound = userMapper.mapTo(userFound.get());
+            return new ResponseEntity<>(userDtoFound,HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping(path = "/users/{id}")
