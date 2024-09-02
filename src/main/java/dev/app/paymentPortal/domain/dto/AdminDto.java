@@ -15,5 +15,8 @@ public class AdminDto {
     private String fullName;
     private String email;
     private String password;
+    private String city;
+    private String streets;
+    private String flats;
 
 }

@@ -2,6 +2,7 @@ package dev.app.paymentPortal.controllers;
 
 
 import dev.app.paymentPortal.domain.dto.InvoiceDto;
+import dev.app.paymentPortal.domain.dto.UserDto;
 import dev.app.paymentPortal.domain.entities.Invoice;
 import dev.app.paymentPortal.mappers.Mapper;
 import dev.app.paymentPortal.services.InvoiceService;
@@ -25,8 +26,7 @@ public class InvoiceController {
     }
 
     @PostMapping(path = "/invoices")
-    public InvoiceDto createInvoice(@RequestBody InvoiceDto invoiceDto)
-    {
+    public InvoiceDto createInvoice(@RequestBody InvoiceDto invoiceDto) throws Exception {
         Invoice invoice = invoiceMapper.mapFrom(invoiceDto);
         Invoice savedInvoice = invoiceService.createInvoice(invoice);
         return invoiceMapper.mapTo(savedInvoice);
@@ -36,6 +36,15 @@ public class InvoiceController {
     public List<InvoiceDto> listInvoices()
     {
         List<Invoice> invoices =  invoiceService.findAll();
+        return invoices.stream()
+                .map(invoiceMapper::mapTo)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "/invoices/user/{id}")
+    public List<InvoiceDto> getInvoicesCorrespondingToOneUser(@PathVariable Long id)
+    {
+        List<Invoice> invoices = invoiceService.findInvoicesOfUserWithId(id);
         return invoices.stream()
                 .map(invoiceMapper::mapTo)
                 .collect(Collectors.toList());

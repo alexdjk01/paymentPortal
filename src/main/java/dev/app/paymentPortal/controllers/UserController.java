@@ -57,6 +57,22 @@ public class UserController {
         }
     }
 
+    @GetMapping(path = "/users/address/{fullAddress}")
+    public ResponseEntity<UserDto> getUserByAddress(@PathVariable String fullAddress)
+    {
+        System.out.println("Received fullAddress: " + fullAddress);
+        Optional<User> userFound = userService.findUserByAddress(fullAddress);
+        if(userFound.isPresent())
+        {
+            UserDto userDtoFound = userMapper.mapTo(userFound.get());
+            return new ResponseEntity<>(userDtoFound, HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping(path = "/users/{id}")
     public ResponseEntity<UserDto> createUpdateUser(@PathVariable Long id, @RequestBody UserDto userDto)
     {

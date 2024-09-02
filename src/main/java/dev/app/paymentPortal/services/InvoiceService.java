@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface InvoiceService {
 
-    Invoice createInvoice(Invoice invoice);
+    Invoice createInvoice(Invoice invoice) throws Exception;
 
     List<Invoice> findAll();
 
@@ -17,4 +17,6 @@ public interface InvoiceService {
     Invoice createUpdateInvoice(Long id, Invoice invoice);
 
     void deleteInvoiceById(Long id);
+
+    List<Invoice> findInvoicesOfUserWithId(Long id);
 }

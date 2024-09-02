@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = StreamSupport.stream(userRepository.findAll().spliterator(), false).filter(e -> e.getEmail().equals(email)).findFirst();
         return user;
     }
+
+    @Override
+    public Optional<User> findUserByAddress(String fullAddress) {
+        Optional<User> user = StreamSupport.stream(userRepository.findAll().spliterator(), false).filter(e -> e.getAddress().equals(fullAddress)).findFirst();
+        return user;
+    }
 }
